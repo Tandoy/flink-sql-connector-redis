@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="04a273ef-1885-4a51-b227-cd0717a8f215" name="Default Changelist" comment="flink-sql-connector-redis：init">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README-CN.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/flink-sql-connector-redis.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/RedisDynamicTableFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/container/RedisCommandsContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/container/RedisCommandsContainerBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/container/RedisContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/mapper/LookupRedisMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/mapper/RedisCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/mapper/RedisCommandDescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/options/RedisLookupOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/options/RedisOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/options/RedisWriteOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/source/RedisDynamicTableSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/source/RedisRowDataBatchLookupFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/redis/source/RedisRowDataLookupFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/services/org.apache.flink.table.factories.Factory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/RedisLookupTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/services/org.apache.flink.table.factories.Factory" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/RedisDynamicTableFactory.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/container/RedisCommandsContainer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/container/RedisCommandsContainerBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/container/RedisContainer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/mapper/LookupRedisMapper.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/mapper/RedisCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/mapper/RedisCommandDescription.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/options/RedisLookupOptions$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/options/RedisLookupOptions.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/options/RedisOptions.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/options/RedisWriteOptions$Builder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/options/RedisWriteOptions.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/source/RedisDynamicTableSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/source/RedisRowDataBatchLookupFunction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/source/RedisRowDataBatchLookupFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/source/RedisRowDataLookupFunction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/redis/source/RedisRowDataLookupFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/RedisLookupTest$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/RedisLookupTest$UserDefinedSource.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/RedisLookupTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\Downloads\repository" />
+        <option name="mavenHome" value="D:\IDEA\IntelliJ IDEA 2020.2.3\IntelliJ IDEA Community Edition 2020.2.3\plugins\maven\lib\maven3" />
+        <option name="userSettingsFile" value="C:\Users\Administrator\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="vmOptions" value="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="26uQhuwnRUX4CjsR9Ky2Z5c51Gg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Downloads\contributor\flink-sql-connector-redis" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Downloads\contributor\flink-sql-connector-redis\src\main\resources\META-INF\services" />
+      <recent name="D:\Downloads\contributor\flink-sql-connector-redis\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="RedisLookupTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RedisLookupTest" />
+      <module name="flink-sql-connector-redis" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.RedisLookupTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04a273ef-1885-4a51-b227-cd0717a8f215" name="Default Changelist" comment="" />
+      <created>1648271115328</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648271115328</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="flink-sql-connector-redis：init" />
+    <option name="LAST_COMMIT_MESSAGE" value="flink-sql-connector-redis：init" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2634" y="0" key="#Auto_Import" timestamp="1648276828701">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2634" y="0" key="#Auto_Import/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648276828701" />
+    <state x="2685" y="225" key="#com.intellij.ide.util.MemberChooser" timestamp="1648275848166">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2685" y="225" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648275848166" />
+    <state x="2733" y="274" key="FileChooserDialogImpl" timestamp="1648349767216">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2733" y="274" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648349767216" />
+    <state x="2691" y="439" key="Github.CreateGistDialog" timestamp="1648348684198">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2691" y="439" key="Github.CreateGistDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648348684198" />
+    <state x="2707" y="417" key="Github.ShareDialog" timestamp="1648349760098">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2707" y="417" key="Github.ShareDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648349760098" />
+    <state width="1877" height="405" key="GridCell.Tab.0.bottom" timestamp="1648348664226">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="405" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648348664226" />
+    <state width="1877" height="405" key="GridCell.Tab.0.center" timestamp="1648348664226">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="405" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648348664226" />
+    <state width="1877" height="405" key="GridCell.Tab.0.left" timestamp="1648348664225">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="405" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648348664225" />
+    <state width="1877" height="405" key="GridCell.Tab.0.right" timestamp="1648348664226">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="405" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648348664226" />
+    <state x="2381" y="164" width="1145" height="711" key="SettingsEditor" timestamp="1648272907145">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2381" y="164" width="1145" height="711" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1648272907145" />
+  </component>
+</project>
