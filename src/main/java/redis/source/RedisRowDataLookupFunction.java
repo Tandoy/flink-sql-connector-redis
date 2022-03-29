@@ -18,7 +18,6 @@
 package redis.source;
 
 import org.apache.flink.annotation.Internal;
-import org.apache.flink.metrics.Gauge;
 import org.apache.flink.shaded.com.google.common.cache.Cache;
 import org.apache.flink.shaded.com.google.common.cache.CacheBuilder;
 import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisConfigBase;
@@ -51,26 +50,18 @@ public class RedisRowDataLookupFunction extends TableFunction<RowData> {
     private static final Logger LOG = LoggerFactory.getLogger(
             RedisRowDataLookupFunction.class);
     private static final long serialVersionUID = 1L;
-
-    private String additionalKey;
-    private LookupRedisMapper lookupRedisMapper;
-    private RedisCommand redisCommand;
-
     protected final RedisLookupOptions redisLookupOptions;
-
-    private FlinkJedisConfigBase flinkJedisConfigBase;
-    private RedisCommandsContainer redisCommandsContainer;
-
     private final long cacheMaxSize;
     private final long cacheExpireMs;
     private final int maxRetryTimes;
-
     private final boolean isBatchMode;
-
     private final int batchSize;
-
     private final int batchMinTriggerDelayMs;
-
+    private String additionalKey;
+    private LookupRedisMapper lookupRedisMapper;
+    private RedisCommand redisCommand;
+    private FlinkJedisConfigBase flinkJedisConfigBase;
+    private RedisCommandsContainer redisCommandsContainer;
     private transient Cache<Object, RowData> cache;
 
     private transient Consumer<Object[]> evaler;
@@ -102,17 +93,54 @@ public class RedisRowDataLookupFunction extends TableFunction<RowData> {
     /**
      * The invoke entry point of lookup function.
      *
-     * @param objects the lookup key. Currently only support single rowkey.
+     * @param redisKey the lookup key. Currently only support single rowkey.
      */
-    public void eval(Object... objects) throws IOException {
+    public void eval(Object... redisKey) throws IOException {
+        // 首先取缓存中数据
+        if (this.cache != null) {
+            RowData cacheRowData = (RowData) this.cache.getIfPresent(redisKey);
+            if (cacheRowData != null) {
+                this.collect(cacheRowData);
+                return;
+            }
+        }
 
+        // 读取 redis
+        this.evaler = in -> {
+            // fetch result
+            byte[] key = lookupRedisMapper.serialize(in);
+
+            byte[] value = null;
+
+            switch (redisCommand) {
+                case GET:
+                    value = this.redisCommandsContainer.get(key); // 这里可以理解为 Jedis
+                    break;
+                case HGET:
+                    value = this.redisCommandsContainer.hget(key, this.additionalKey.getBytes());
+                    break;
+                default:
+                    throw new IllegalArgumentException("Cannot process such data type: " + redisCommand);
+            }
+
+            RowData rowData = this.lookupRedisMapper.deserialize(value);
+
+            collect(rowData);
+
+            // 放入缓存
+            if (null != rowData) {
+                cache.put(key, rowData);
+            }
+        };
+
+        // 收集
         for (int retry = 0; retry <= maxRetryTimes; retry++) {
             try {
                 // fetch result
-                this.evaler.accept(objects);
+                this.evaler.accept(redisKey);
                 break;
             } catch (Exception e) {
-                LOG.error(String.format("HBase lookup error, retry times = %d", retry), e);
+                LOG.error(String.format("Redis lookup error, retry times = %d", retry), e);
                 if (retry >= maxRetryTimes) {
                     throw new RuntimeException("Execution of Redis lookup failed.", e);
                 }
@@ -131,79 +159,23 @@ public class RedisRowDataLookupFunction extends TableFunction<RowData> {
         LOG.info("start open ...");
 
         try {
+            //  构建有jedis连接池的容器对象
             this.redisCommandsContainer =
                     RedisCommandsContainerBuilder
                             .build(this.flinkJedisConfigBase);
+            // 从容器中得到一个 jedis 对象
             this.redisCommandsContainer.open();
+
+            // guava 缓存
+            this.cache = this.cacheMaxSize > 0L && this.cacheExpireMs > 0L ? CacheBuilder.newBuilder().recordStats().expireAfterWrite(this.cacheExpireMs, TimeUnit.MILLISECONDS).maximumSize(this.cacheMaxSize).build() : null;
+            if (this.cache != null) {
+                context.getMetricGroup().gauge("lookupCacheHitRate", () -> {
+                    return this.cache.stats().hitRate();
+                });
+            }
         } catch (Exception e) {
             LOG.error("Redis has not been properly initialized: ", e);
             throw new RuntimeException(e);
-        }
-
-        this.cache = cacheMaxSize <= 0 || cacheExpireMs <= 0 ? null : CacheBuilder.newBuilder()
-                .recordStats()
-                .expireAfterWrite(cacheExpireMs, TimeUnit.MILLISECONDS)
-                .maximumSize(cacheMaxSize)
-                .build();
-
-        if (cache != null) {
-            context.getMetricGroup()
-                    .gauge("lookupCacheHitRate", (Gauge<Double>) () -> cache.stats().hitRate());
-
-
-            this.evaler = in -> {
-                RowData cacheRowData = cache.getIfPresent(in);
-                if (cacheRowData != null) {
-//                    collect(cacheRowData);
-                } else {
-                    // fetch result
-                    byte[] key = lookupRedisMapper.serialize(in);
-
-                    byte[] value = null;
-
-                    switch (redisCommand) {
-                        case GET:
-                            value = this.redisCommandsContainer.get(key);
-                            break;
-                        case HGET:
-                            value = this.redisCommandsContainer.hget(key, this.additionalKey.getBytes());
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Cannot process such data type: " + redisCommand);
-                    }
-
-                    RowData rowData = this.lookupRedisMapper.deserialize(value);
-
-                    collect(rowData);
-
-                    if (null != rowData) {
-                        cache.put(key, rowData);
-                    }
-                }
-            };
-
-        } else {
-            this.evaler = in -> {
-                // fetch result
-                byte[] key = lookupRedisMapper.serialize(in);
-
-                byte[] value = null;
-
-                switch (redisCommand) {
-                    case GET:
-                        value = this.redisCommandsContainer.get(key);
-                        break;
-                    case HGET:
-                        value = this.redisCommandsContainer.hget(key, this.additionalKey.getBytes());
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Cannot process such data type: " + redisCommand);
-                }
-
-                RowData rowData = this.lookupRedisMapper.deserialize(value);
-
-                collect(rowData);
-            };
         }
 
         LOG.info("end open.");
